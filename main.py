@@ -2,12 +2,11 @@ import mysql.connector
 # Funcion que trae la conexion a la base de datos
 def get_db():
   db = mysql.connector.connect(
-    host="18.116.82.240",
+    host="172.31.25.14",
     user="studentsucundi",
     password="mami_prende_la_radi0",
     port="3306",
     database="employees",
-    auth_plugin='mysql_native_password',
   )
   return db
 # Funcion para cerrar la conexion a la base de datos para no dejar conexiones abiertas
@@ -77,4 +76,5 @@ def main():
   emp = read_employee_by_id("666")
   print(emp)
   delete_employee('666')
-main()
+if __name__ == "__main__":
+  main()
