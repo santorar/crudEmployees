@@ -1,4 +1,5 @@
 import mysql.connector
+
 # Funcion que trae la conexion a la base de datos
 def get_db():
   db = mysql.connector.connect(
@@ -9,9 +10,11 @@ def get_db():
     database="employees",
   )
   return db
+
 # Funcion para cerrar la conexion a la base de datos para no dejar conexiones abiertas
 def close_db(db):
   db.close()
+
 # Funcion que trae los ultimos 10 empleados de la base de datos
 def read_employees():
   db = get_db()
@@ -20,6 +23,7 @@ def read_employees():
   result = cursor.fetchall()
   close_db(db)
   return result
+
 # Funcion que trae un empleado por su id(emp_no)
 def read_employee_by_id(id):
   db = get_db()
@@ -28,6 +32,7 @@ def read_employee_by_id(id):
   result = cursor.fetchone()
   close_db(db)
   return result
+
 # Funcion para crear un empleado en la base de datos
 def create_employee(employee):
   db = get_db()
@@ -35,6 +40,7 @@ def create_employee(employee):
   cursor.execute("INSERT INTO employees (emp_no, birth_date, first_name, last_name, gender, hire_date) VALUES (%s, %s, %s, %s, %s, %s)", (employee["emp_no"],employee["birth_date"], employee["first_name"], employee["last_name"], employee["gender"], employee["hire_date"]))
   db.commit()
   close_db(db)
+
 # Funcion para actualizar un empleado en la base de datos por su id(emp_no)
 def update_employee(employee):
   db = get_db()
@@ -42,6 +48,7 @@ def update_employee(employee):
   cursor.execute("UPDATE employees SET emp_no = %s, birth_date = %s, first_name = %s, last_name = %s, gender = %s, hire_date = %s WHERE emp_no = %s", (employee["emp_no"],employee["birth_date"], employee["first_name"], employee["last_name"] , employee["gender"], employee["hire_date"], employee["emp_no"]))
   db.commit()
   close_db(db)
+
 # Funcion para eliminar un empleado de la base de datos por su id(emp_no)
 def delete_employee(id):
   db = get_db()
@@ -49,6 +56,7 @@ def delete_employee(id):
   cursor.execute("DELETE FROM employees WHERE emp_no = %s", (id,))
   db.commit()
   close_db(db)
+
 # Funcion principal que llama a las funciones anteriores
 def main():
   emps = read_employees()
@@ -76,5 +84,6 @@ def main():
   emp = read_employee_by_id("666")
   print(emp)
   delete_employee('666')
+
 if __name__ == "__main__":
   main()
